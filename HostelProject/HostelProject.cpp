@@ -140,43 +140,72 @@ int main()
 {
 
     Login loginData;
+    int option;
     cout << "-------------------------" << endl;
-    cout << "    1.Add new student!   " << endl;
-    cout << "    2.Delete student!    " << endl;
-    cout << "    3.Edit student data! " << endl;
-    cout << "    4.Show all students! " << endl;
-    cout << "    5.Search student!    " << endl;
-    cout << "    6.Exit               " << endl;
+    cout << "   1. Register" << endl;
+    cout << "   2. Login as admin" << endl;
+    cout << "   3.Exit" << endl;
     cout << "-------------------------" << endl;
     cout << "Choose an option: ";
-    int option;
     cin >> option;
-    while (option > 6 or option < 1)
+    while (option > 3 or option < 1)
     {
-        if (option > 6 or option < 1)
+        if (option > 3 or option < 1)
         {
             cout << "Wrong number. Choose an option again!" << endl;
             cout << endl << "Choose an option: ";
             cin >> option;
         }
     }
-    switch (option) {
-    case 1:
-        Register();
-        break;
-    case 2:
-        cout << "Delete student!";
-        break;
+    switch (option)
+    {
+        case 1:
+            Register();
+            break;
+        case 2:
+            Admin(loginData);
+            int admopt;
+            cout << "-------------------------" << endl;
+            cout << "   1. Add new student" << endl;
+            cout << "   2. Delete student!" << endl;
+            cout << "   3. Edit student data!" << endl;
+            cout << "   4. Show all students!" << endl;
+            cout << "   5. Search student!" << endl;
+            cout << "   6. Exit!" << endl;
+            cout << "-------------------------" << endl;
+            cout << "Choose an option: ";
+            cin >> admopt;
+            while (admopt > 6 or admopt < 1)
+            {
+                if (admopt > 6 or admopt < 1)
+                {
+                    cout << "Wrong number. Choose an option again!" << endl;
+                    cout << endl << "Choose an option: ";
+                    cin >> admopt;
+                }
+            }
+            switch (admopt)
+            {
+            case 1:
+                Register();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                return 0;
+            }
     case 3:
-        cout << "Edit student data!";
-        break;
-    case 4:
-        cout << "Show all students!";
-        break;
-    case 5:
-        cout << "Search student!";
-        break;
-    case 6:
         return 0;
+            
+
     }
+
+
+
 }
