@@ -138,7 +138,45 @@ void Register()
 
 int main()
 {
+
     Login loginData;
-    Admin(loginData);
-    Register();
+    cout << "-------------------------" << endl;
+    cout << "    1.Add new student!   " << endl;
+    cout << "    2.Delete student!    " << endl;
+    cout << "    3.Edit student data! " << endl;
+    cout << "    4.Show all students! " << endl;
+    cout << "    5.Search student!    " << endl;
+    cout << "    6.Exit               " << endl;
+    cout << "-------------------------" << endl;
+    cout << "Choose an option: ";
+    int option;
+    cin >> option;
+    while (option > 6 or option < 1)
+    {
+        if (option > 6 or option < 1)
+        {
+            cout << "Wrong number. Choose an option again!" << endl;
+            cout << endl << "Choose an option: ";
+            cin >> option;
+        }
+    }
+    switch (option) {
+    case 1:
+        Register();
+        break;
+    case 2:
+        cout << "Delete student!";
+        break;
+    case 3:
+        cout << "Edit student data!";
+        break;
+    case 4:
+        cout << "Show all students!";
+        break;
+    case 5:
+        cout << "Search student!";
+        break;
+    case 6:
+        return 0;
+    }
 }
