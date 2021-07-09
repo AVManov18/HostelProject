@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 struct Login
@@ -15,6 +16,7 @@ struct USER
     string studentFName;
     string studentLName;
     int studentYears;
+    int id;
 };
 
 
@@ -39,9 +41,9 @@ void Admin(Login& loginData)
         cin >> loginData.Password;
     }
     cout << endl;
-    cout << "    --------------------------     " << endl;
-    cout << "             WELCOME!              " << endl;
-    cout << "    --------------------------     " << endl;
+    cout << setw(70) << "    --------------------------     " << endl;
+    cout << setw(70) << "             WELCOME!              " << endl;
+    cout << setw(70) << "    --------------------------     " << endl;
 
 }
 //function to check for the first and last name is there any numbers or symbols in the name
@@ -93,7 +95,7 @@ void Register()
         for (int i = 0; i < 3; i++)
         {
             cin >> numberStudents;
-            if (numberStudents > 9 or numberStudents < 1);
+            if (numberStudents > 9 or numberStudents < 1)
             {
 
             }
@@ -138,15 +140,15 @@ void Register()
 
 int main()
 {
-
+   
     Login loginData;
     int option;
-    cout << "-------------------------" << endl;
-    cout << "   1. Register" << endl;
-    cout << "   2. Login as admin" << endl;
-    cout << "   3.Exit" << endl;
-    cout << "-------------------------" << endl;
-    cout << "Choose an option: ";
+    cout << setw(70) << "-----------------------------" << endl;
+    cout << setw(56) << "   1. Register" << endl;
+    cout << setw(62) << "   2. Login as admin" << endl;
+    cout << setw(52) << "   3. Exit" << endl;
+    cout << setw(70) << "-----------------------------" << endl;
+    cout << setw(62) << "Choose an option: ";
     cin >> option;
     while (option > 3 or option < 1)
     {
@@ -165,15 +167,15 @@ int main()
         case 2:
             Admin(loginData);
             int admopt;
-            cout << "-------------------------" << endl;
-            cout << "   1. Add new student" << endl;
-            cout << "   2. Delete student!" << endl;
-            cout << "   3. Edit student data!" << endl;
-            cout << "   4. Show all students!" << endl;
-            cout << "   5. Search student!" << endl;
-            cout << "   6. Exit!" << endl;
-            cout << "-------------------------" << endl;
-            cout << "Choose an option: ";
+            cout << setw(70) << "----------------------------" << endl;
+            cout << setw(64) << "   1. Add new student" << endl;
+            cout << setw(64) << "   2. Delete student!" << endl;
+            cout << setw(67) << "   3. Edit student data!" << endl;
+            cout << setw(67) << "   4. Show all students!" << endl;
+            cout << setw(64) << "   5. Search student!" << endl;
+            cout << setw(54) << "   6. Exit!" << endl;
+            cout << setw(70) << "----------------------------" << endl;
+            cout << setw(64) << "Choose an option: ";
             cin >> admopt;
             while (admopt > 6 or admopt < 1)
             {
