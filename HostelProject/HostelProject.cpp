@@ -18,6 +18,12 @@ struct USER
     int studentYears;
     int id;
 };
+void registerUser(USER* users, int& userCount, int& maxId, USER newUsers)
+{
+    newUsers.id = maxId++;
+    users[userCount] = newUsers;
+    userCount++;
+}
 int getUserId(USER* users, int& userCount, int id)
 {
     for (int i = 0; i < userCount; i++)
@@ -68,35 +74,36 @@ bool isCharacter(string check)
     }
     return false;
 }
-
-void Register(USER* users)
+void registerUserMenu(USER* users, int& userCount, int& maxId)
 {
-    USER user[50];
+    USER user;
     int numberStudents;
+    cout << endl << "Please insert id";
+    cin >> user.id;
     cout << endl << "Please insert first name: ";
-    cin >> user[0].firstName;
-    while (isCharacter(user[0].firstName))
+    cin >> user.firstName;
+    while (isCharacter(user.firstName))
     {
-        if (isCharacter(user[0].firstName))
+        if (isCharacter(user.firstName))
         {
             cout << endl << "The name should start with Capital letter and it should contain only letters!" << endl;
         }
         cout << endl << "Please insert first name: ";
-        cin >> user[0].firstName;
+        cin >> user.firstName;
     }
     cout << endl << "Please insert last name: ";
-    cin >> user[0].lastName;
-    while (isCharacter(user[0].lastName))
+    cin >> user.lastName;
+    while (isCharacter(user.lastName))
     {
-        if (isCharacter(user[0].lastName))
+        if (isCharacter(user.lastName))
         {
             cout << endl << "The last name should start with Capital letter and it should contain only letters!" << endl;
         }
         cout << endl << "Please insert last name: ";
-        cin >> user[0].lastName;
+        cin >> user.lastName;
     }
     cout << endl << "Please insert your address WITHOUT SPACES: ";
-    cin >> user[0].Address;
+    cin >> user.Address;
     cout << endl << "Please insert number of students: ";
     cin >> numberStudents;
     if (numberStudents > 9 or numberStudents < 1)
@@ -105,10 +112,6 @@ void Register(USER* users)
         for (int i = 0; i < 3; i++)
         {
             cin >> numberStudents;
-            if (numberStudents > 9 or numberStudents < 1)
-            {
-
-            }
         }
     }
 
@@ -118,23 +121,23 @@ void Register(USER* users)
     for (int i = 0; i < numberStudents; i++)
     {
         cout << endl << "Please insert your child first and last name: ";
-        cin >> user[i].studentFName;
-        cin >> user[i].studentLName;
+        cin >> user.studentFName;
+        cin >> user.studentLName;
         cout << endl << "Please insert your child years: ";
-        cin >> user[i].studentYears;
-        while (user[i].studentYears < 12 or user[i].studentYears>16)
+        cin >> user.studentYears;
+        while (user.studentYears < 12 or user.studentYears>16)
         {
-            if (user[i].studentYears < 12)
+            if (user.studentYears < 12)
             {
                 cout << "Your kid is under 12 years!" << endl;
             }
-            if (user[i].studentYears > 16)
+            if (user.studentYears > 16)
             {
                 cout << "Your kid is above 16 years!" << endl;
             }
 
 
-            cin >> user[i].studentYears;
+            cin >> user.studentYears;
 
         }
     }
@@ -143,9 +146,30 @@ void Register(USER* users)
     for (int i = 0; i < numberStudents; i++)
     {
         cout << endl;
-        cout << user[i].studentFName << " " << user[i].studentLName << " " << user[i].studentYears << endl;
+        cout << user.studentFName << " " << user.studentLName << " " << user.studentYears << endl;
+    }
+    registerUser(users, userCount, maxId, user);
+}
+
+USER getUser(USER* users, int& userCount, int id)
+{
+    int index = getUserId(users, userCount, id);
+    return users[index];
+}
+void showUserMenu(USER* users, int userCount, int& maxId)
+{
+    cout << "List of the entered products: " << endl;
+    for (int i = 0; i < userCount; i++)
+    {
+        cout << "Id: " << users[i].id << endl;
+        cout << "First name: " << users[i].firstName << endl;
+        cout << "Last name: " << users[i].lastName << endl;
+        cout << "Student first name: " << users[i].studentFName << endl;
+        cout << "Student last name: " << users[i].studentLName << endl;
+        cout << "Student years: " << users[i].studentYears << endl;
     }
 }
+
 
 
 void deleteUser(USER* users, int& usersCount, int id) // Function that delete user by id
@@ -157,14 +181,14 @@ void deleteUser(USER* users, int& usersCount, int id) // Function that delete us
         users[i] = users[i + 1];
     }
 }
-void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that delete  users
+void deleteUserMenu(USER* users, int& usersCount, int& maxId) //displays a menu that delete  users
 {
     int userId;
 
     cout << endl << "Enter Id of the student: ";
     cin >> userId;
 
-    deleteUser(users, userCount, userId);
+    deleteUser(users, usersCount, userId);
 
     cout << endl << "The student has been removed!" << endl;
 }
@@ -193,7 +217,7 @@ bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of th
     switch (option)
     {
     case 1:
-        Register(users);
+        registerUserMenu(users,usersCount, id);
         break;
     case 2:
         Admin(loginData);
@@ -216,27 +240,30 @@ bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of th
                 cout << endl << "Choose an option: ";
                 cin >> admopt;
             }
+            switch (admopt)
+            {
+            case 1:
+                registerUserMenu(users,usersCount, id);
+                break;
+            case 2:
+                deleteUserMenu(users, usersCount, id);
+                break;
+            case 3:
+                break;
+            case 4:
+                showUserMenu(users, usersCount, id);
+                break;
+            case 5: 
+                getUser(users, usersCount, id);
+                break;
+            case 6:
+                return 0;
+            }
         }
-        switch (admopt)
-        {
-        case 1:
-            Register(users);
-            break;
-        case 2:
-            deleteUserMenu(users, userCount, id);
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            return 0;
-        }
-    case 3:
-        return 0;
-
+    case 3: {
+        return false;
+    }
+    
 
     }
 }
