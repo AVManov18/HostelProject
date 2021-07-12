@@ -157,7 +157,7 @@ void deleteUser(USER* users, int& usersCount, int id) // Function that delete us
         users[i] = users[i + 1];
     }
 }
-void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that delete a user
+void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that delete  users
 {
     int userId;
 
