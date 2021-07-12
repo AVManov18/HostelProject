@@ -18,7 +18,17 @@ struct USER
     int studentYears;
     int id;
 };
-
+int getUserId(USER* users, int& userCount, int id) 
+{
+    for (int i = 0; i < userCount; i++)
+    {
+        if (users[i].id == id)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
 
 void Admin(Login& loginData)
 {
@@ -59,9 +69,9 @@ bool isCharacter(string check)
     return false;
 }
 
-void Register()
+void Register(USER* users)
 {
-    USER user[200];
+    USER user[50];
     int numberStudents;
     cout << endl << "Please insert first name: ";
     cin >> user[0].firstName;
@@ -138,10 +148,31 @@ void Register()
 }
 
 
-int main()
+void deleteUser(USER* users, int& usersCount, int id) // Function that delete user by id
 {
-   
+    int index = getUserId(users, usersCount, id);
+
+    for (int i = index; i < usersCount - 1; i++)
+    {
+        users[i] = users[i + 1];
+    }
+}
+void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that delete a user
+{
+    int userId;
+
+    cout << endl << "Enter Id of the student: ";
+    cin >> userId;
+
+    deleteUser(users, userCount, userId);
+
+    cout << endl << "The student has been removed!" << endl;
+}
+bool MainMenu( USER* users, int& usersCount, int& id) // diplsays main menu of the program
+{
+    int maxId = 1;
     Login loginData;
+    int userCount = 0;
     int option;
     cout << setw(70) << "-----------------------------" << endl;
     cout << setw(56) << "   1. Register" << endl;
@@ -161,53 +192,64 @@ int main()
     }
     switch (option)
     {
+    case 1:
+        Register(users);
+        break;
+    case 2:
+        Admin(loginData);
+        int admopt;
+        cout << setw(70) << "----------------------------" << endl;
+        cout << setw(64) << "   1. Add new student" << endl;
+        cout << setw(64) << "   2. Delete student!" << endl;
+        cout << setw(67) << "   3. Edit student data!" << endl;
+        cout << setw(67) << "   4. Show all students!" << endl;
+        cout << setw(64) << "   5. Search student!" << endl;
+        cout << setw(54) << "   6. Exit!" << endl;
+        cout << setw(70) << "----------------------------" << endl;
+        cout << setw(64) << "Choose an option: ";
+        cin >> admopt;
+        while (admopt > 6 or admopt < 1)
+        {
+            if (admopt > 6 or admopt < 1)
+            {
+                cout << "Wrong number. Choose an option again!" << endl;
+                cout << endl << "Choose an option: ";
+                cin >> admopt;
+            }
+        }
+        switch (admopt)
+        {
         case 1:
-            Register();
+            Register(users);
             break;
         case 2:
-            Admin(loginData);
-            int admopt;
-            cout << setw(70) << "----------------------------" << endl;
-            cout << setw(64) << "   1. Add new student" << endl;
-            cout << setw(64) << "   2. Delete student!" << endl;
-            cout << setw(67) << "   3. Edit student data!" << endl;
-            cout << setw(67) << "   4. Show all students!" << endl;
-            cout << setw(64) << "   5. Search student!" << endl;
-            cout << setw(54) << "   6. Exit!" << endl;
-            cout << setw(70) << "----------------------------" << endl;
-            cout << setw(64) << "Choose an option: ";
-            cin >> admopt;
-            while (admopt > 6 or admopt < 1)
-            {
-                if (admopt > 6 or admopt < 1)
-                {
-                    cout << "Wrong number. Choose an option again!" << endl;
-                    cout << endl << "Choose an option: ";
-                    cin >> admopt;
-                }
-            }
-            switch (admopt)
-            {
-            case 1:
-                Register();
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                return 0;
-            }
+            deleteUserMenu(users,userCount, id);
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            return 0;
+        }
     case 3:
         return 0;
-            
+
 
     }
+}
 
+int main()
+{
+    Login loginData;
+    int usersCount = 0;
+    int maxId = 1;
 
-
+    USER users[100];
+    do
+    {
+        MainMenu(users, usersCount, maxId);
+    } while (MainMenu);
 }
