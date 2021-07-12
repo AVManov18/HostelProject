@@ -2,6 +2,14 @@
 #include <string>
 #include <iomanip>
 using namespace std;
+struct PERSON
+{
+    string firstName[10] = { "Georgi", "Joro", "Ivan", "Kiril", "Viktor", "Kristian", "Todor", "Teodor", "Iliq", "Hristo" };
+    string lastName[10] = { "Rambov", "Filipov", "Georgiev", "Ivanov", "Stoyanov", "Panaiotov", "Marinov", "Dimchev", "Dqkov", "Bojinov" };
+    int Years[10] = { 12, 15, 16, 13, 14, 15, 16, 14, 13, 12 };
+
+
+};
 
 struct Login
 {
@@ -55,6 +63,13 @@ void Admin(Login& loginData)
     cout << setw(70) << "             WELCOME!              " << endl;
     cout << setw(70) << "    --------------------------     " << endl;
 
+}
+void Person()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        cout << PERSON.firstName[i] << " " << PERSON.lastName[i] << " " << PERSON.Years[i] << endl;
+    }
 }
 //function to check for the first and last name is there any numbers or symbols in the name
 bool isCharacter(string check)
