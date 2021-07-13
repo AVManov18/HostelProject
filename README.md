@@ -18,7 +18,7 @@
 ##  3. Technologies
     To do this project, we use: 
     
-    -Visual studio; 
-    -C++;
-    -Github;
-    -Discord to communicate
+    - Visual studio; 
+    - C++;
+    - Github;
+    - Discord to communicate
