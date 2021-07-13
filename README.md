@@ -17,7 +17,8 @@
   - Dimitur Georgiev (BackEnd Developer)
 ##  3. Technologies
     To do this project, we use: 
-    -visual studio; 
-    -c++;
-    -github;
-    -discord to communicate
+    
+    -Visual studio; 
+    -C++;
+    -Github;
+    -Discord to communicate
