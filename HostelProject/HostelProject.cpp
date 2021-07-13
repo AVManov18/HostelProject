@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iomanip>
-
 using namespace std;
-
 struct USER
 {
     int id;
@@ -19,7 +17,6 @@ struct USER
     int studentYears;
 };
 
-
 void Admin(string UsernName, string pass)
 {
     string admin;
@@ -32,7 +29,7 @@ void Admin(string UsernName, string pass)
 
     while (admin != "admin" or adminPass != "adminpass")
     {
-        //checks if the PASSWORD and USERNAME match the password and username given to us
+        //check is that the admin account
         if (admin != "admin" or adminPass != "adminpass")
         {
             cout << endl << "Wrong username or password! Try Again" << endl;
@@ -46,15 +43,9 @@ void Admin(string UsernName, string pass)
     cout << setw(70) << "    --------------------------     " << endl;
     cout << setw(70) << "             WELCOME!              " << endl;
     cout << setw(70) << "    --------------------------     " << endl;
-
 }
 
-
-
-
-
-/*=========CRUD=========*/
-int getUserId(USER* users, int& userCount, int id) //Gets user's index by using the id of the user
+int getUserId(USER* users, int& userCount, int id) //search and get index by a student id
 {
     for (int i = 0; i < userCount; i++)
     {
@@ -66,20 +57,20 @@ int getUserId(USER* users, int& userCount, int id) //Gets user's index by using 
     return -1;
 }
 
-void registerUser(USER* users, int& userCount, int& maxId, USER newUsers) // adds new user to the main list (the array)
+void registerUser(USER* users, int& userCount, int& maxId, USER newUsers) //register new user in the list
 {
     users[userCount] = newUsers;
     newUsers.id = maxId++;
     userCount++;
 }
 
-void modifyUser(USER* users, int userCount, int id, USER newUsers) //edits the data of the user
+void modifyUser(USER* users, int userCount, int id, USER newUsers) //change data of some user
 {
     int index = getUserId(users, userCount, id);
     users[index] = newUsers;
 }
 
-void deleteUser(USER* users, int& usersCount, int id) // "deletes" user
+void deleteUser(USER* users, int& usersCount, int id) //remove user permanent from the list
 {
     int index = getUserId(users, usersCount, id);
 
@@ -90,13 +81,13 @@ void deleteUser(USER* users, int& usersCount, int id) // "deletes" user
     usersCount--;
 }
 
-USER getUser(USER* users, int& userCount, int id) // finds product by its index
+USER getUser(USER* users, int& userCount, int id) //search user from the list
 {
     int index = getUserId(users, userCount, id);
     return users[index];
 }
 
-bool isCharacter(string check)
+bool isCharacter(string check) //to check is it alpha
 {
     for (int i = 0; i < check.length(); i++)
     {
@@ -107,12 +98,8 @@ bool isCharacter(string check)
     }
     return false;
 }
-/*======================*/
 
-
-
-
-void enterUserMenu(USER* users, int& userCount, int& maxId) //dislays the menu that help the admin to enter user's data
+void enterUserMenu(USER* users, int& userCount, int& maxId) //show the main menu to help admin to add new user
 {
     USER user;
     int numberStudents;
@@ -171,7 +158,7 @@ void enterUserMenu(USER* users, int& userCount, int& maxId) //dislays the menu t
     cout << "You are ready! The user has been added to your list!" << endl;
 }
 
-void showUserMenu(USER* users, int& userCount, int& maxId) // shows all current saved users' data to the admin
+void showUserMenu(USER* users, int& userCount, int& maxId) //display all entered students
 {
     cout << endl << "List of the entered users:" << endl;
     for (int i = 0; i < userCount; i++)
@@ -189,15 +176,12 @@ void showUserMenu(USER* users, int& userCount, int& maxId) // shows all current 
     }
 }
 
-void editMenu(USER* users, int& userCount) //displays the menu that help the admin to edit data of a user
+void editMenu(USER* users, int& userCount) //show the menu that can help admin to edit student information
 {
     int userId;
-
     cout << "Please enter the id of the user that you want to edit: ";
     cin >> userId;
-
     USER user = getUser(users, userCount, userId);
-
     cout << endl << "1.Id: " << endl;
     cout << endl << "2.First name of the parent: " << endl;
     cout << endl << "3.Last name of the parent: " << endl;
@@ -208,10 +192,8 @@ void editMenu(USER* users, int& userCount) //displays the menu that help the adm
     cout << endl << "8.Student last name: " << endl;
     cout << endl << "9.Student years " << endl;
     cout << endl << "What do you want to edit: " << endl;
-
     int choose;
     cin >> choose;
-
     switch (choose)
     {
     case 1:
@@ -266,7 +248,7 @@ void editMenu(USER* users, int& userCount) //displays the menu that help the adm
     cout << "You are ready! The user has been edited in the list!" << endl;
 }
 
-void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that help the admin to delete a whole user
+void deleteUserMenu(USER* users, int& userCount, int& maxId) //show menu for deleting user
 {
     int userId;
 
@@ -277,10 +259,7 @@ void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu t
     cout << "The user has been removed from the list!" << endl;
 }
 
-
-/*=====PRESENTATION LAYER=====*/
-
-bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of the program
+bool MainMenu(USER* users, int& usersCount, int& id) //show admin's menu
 {
     int choice;
     cout << setw(70) << "-----------------------------" << endl;
@@ -330,22 +309,36 @@ bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of th
     }
 }
 
-/*===================================================*/
-int main() // the main function of the project
+int main() // the main function
 {
 
     int customerCount = 0;
     int maxId = 1;
     USER customers[100];
+    int choose1;
+    cout << "1. Registration" << endl;
+    cout << "2. admin login" << endl;
+        cin >> choose1;
+        switch (choose1)
+        {
+        case 1:
+        {
+            enterUserMenu(customers, customerCount, maxId);
 
-    bool mainMenu = true;
-    string admin;
-    string adminpass;
-    Admin(admin, adminpass);
-    if (Admin)
-    {
-        do {
-            mainMenu = MainMenu(customers, customerCount, maxId);
-        } while (mainMenu);
-    }
+        }
+        case 2:
+        {
+            bool mainMenu = true;
+            string admin;
+            string adminpass;
+            Admin(admin, adminpass);
+            if (Admin)
+            {
+                do {
+                    mainMenu = MainMenu(customers, customerCount, maxId);
+                } while (mainMenu);
+            }
+            break;
+        }
+        }
 }
