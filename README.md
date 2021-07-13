@@ -16,4 +16,8 @@
   - Atanas Manov (BackEnd Developer)
   - Dimitur Georgiev (BackEnd Developer)
 ##  3. Technologies
-    To do this project, we use visual studio, c++, github and discord to communicate.
+    To do this project, we use: 
+    -visual studio; 
+    -c++;
+    -github;
+    -discord to communicate
