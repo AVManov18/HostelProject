@@ -1,30 +1,60 @@
 #include <iostream>
-#include <string>
+#include <string>studentName
+#include <stdio.h>
+#include <stdlib.h>
 #include <iomanip>
+
 using namespace std;
 
-struct Login
-{
-    string Username;
-    string Password;
-};
 struct USER
 {
+    int id;
     string firstName;
     string lastName;
-    string Address;
+    string username;
+    string password;
+    string address;
     string studentFName;
     string studentLName;
     int studentYears;
-    int id;
 };
-void registerUser(USER* users, int& userCount, int& maxId, USER newUsers)
+
+
+void Admin(string UsernName, string pass)
 {
-    newUsers.id = maxId++;
-    users[userCount] = newUsers;
-    userCount++;
+    string admin;
+    string adminPass;
+
+    cout << "Please insert username: ";
+    cin >> admin;
+    cout << endl << "Please insert password: ";
+    cin >> adminPass;
+
+    while (admin != "admin" or adminPass != "adminpass")
+    {
+        //checks if the PASSWORD and USERNAME match the password and username given to us
+        if (admin != "admin" or adminPass != "adminpass")
+        {
+            cout << endl << "Wrong username or password! Try Again" << endl;
+        }
+        cout << endl << "Please insert username: ";
+        cin >> admin;
+        cout << endl << "Please insert password: ";
+        cin >> adminPass;
+    }
+    cout << endl;
+    cout << setw(70) << "    --------------------------     " << endl;
+    cout << setw(70) << "             WELCOME!              " << endl;
+    cout << setw(70) << "    --------------------------     " << endl;
+
 }
-int getUserId(USER* users, int& userCount, int id)
+
+
+
+
+
+/*=========CRUD=========*/
+int getUserId(USER* users, int& userCount, int id) //Gets user's index by using the id of the user
 {
     for (int i = 0; i < userCount; i++)
     {
@@ -36,33 +66,36 @@ int getUserId(USER* users, int& userCount, int id)
     return -1;
 }
 
-void Admin(Login& loginData)
+void registerUser(USER* users, int& userCount, int& maxId, USER newUsers) // adds new user to the main list (the array)
 {
-
-    cout << "Please insert username: ";
-    cin >> loginData.Username;
-    cout << endl << "Please insert password: ";
-    cin >> loginData.Password;
-
-    while (loginData.Username != "admin" or loginData.Password != "adminpass")
-    {
-        //checks if the PASSWORD and USERNAME match the password and username given to us
-        if (loginData.Username != "admin" or loginData.Password != "adminpass")
-        {
-            cout << endl << "Wrong username or password! Try Again" << endl;
-        }
-        cout << endl << "Please insert username: ";
-        cin >> loginData.Username;
-        cout << endl << "Please insert password: ";
-        cin >> loginData.Password;
-    }
-    cout << endl;
-    cout << setw(70) << "    --------------------------     " << endl;
-    cout << setw(70) << "             WELCOME!              " << endl;
-    cout << setw(70) << "    --------------------------     " << endl;
-
+    users[userCount] = newUsers;
+    newUsers.id = maxId++;
+    userCount++;
 }
-//function to check for the first and last name is there any numbers or symbols in the name
+
+void modifyUser(USER* users, int userCount, int id, USER newUsers) //edits the data of the user
+{
+    int index = getUserId(users, userCount, id);
+    users[index] = newUsers;
+}
+
+void deleteUser(USER* users, int& usersCount, int id) // "deletes" user
+{
+    int index = getUserId(users, usersCount, id);
+
+    for (int i = index; i < usersCount - 1; i++)
+    {
+        users[i] = users[i + 1];
+    }
+    usersCount--;
+}
+
+USER getUser(USER* users, int& userCount, int id) // finds product by its index
+{
+    int index = getUserId(users, userCount, id);
+    return users[index];
+}
+
 bool isCharacter(string check)
 {
     for (int i = 0; i < check.length(); i++)
@@ -74,38 +107,39 @@ bool isCharacter(string check)
     }
     return false;
 }
-void registerUserMenu(USER* users, int& userCount, int& maxId)
+/*======================*/
+
+
+
+
+void enterUserMenu(USER* users, int& userCount, int& maxId) //dislays the menu that help the admin to enter user's data
 {
     USER user;
     int numberStudents;
-    cout << endl << "Please insert id";
-    cin >> user.id;
-    cout << endl << "Please insert first name: ";
-    cin >> user.firstName;
+    cout << "Enter the id of the parent: "; cin >> user.id;
+    cout << endl << "Please insert first name of the parent: "; cin >> user.firstName;
     while (isCharacter(user.firstName))
     {
         if (isCharacter(user.firstName))
         {
-            cout << endl << "The name should start with Capital letter and it should contain only letters!" << endl;
+            cout << endl << "The name should be only from letters! ";
         }
-        cout << endl << "Please insert first name: ";
-        cin >> user.firstName;
+        cout << endl << "Please insert first name of the parent: "; cin >> user.firstName;
     }
-    cout << endl << "Please insert last name: ";
-    cin >> user.lastName;
+    cout << endl << "Please insert last name of the parent: "; cin >> user.lastName;
     while (isCharacter(user.lastName))
     {
         if (isCharacter(user.lastName))
         {
-            cout << endl << "The last name should start with Capital letter and it should contain only letters!" << endl;
+            cout << endl << "The last name should be only from letters! " ;
         }
-        cout << endl << "Please insert last name: ";
-        cin >> user.lastName;
+        cout << endl << "Please insert last name of the parent: "; cin >> user.lastName;
     }
-    cout << endl << "Please insert your address WITHOUT SPACES: ";
-    cin >> user.Address;
-    cout << endl << "Please insert number of students: ";
-    cin >> numberStudents;
+    cout << "Enter the username of the parent: "; cin >> user.username; cout << endl;
+    cout << "Enter the password of the parent: "; cin >> user.password;
+
+    cout << endl << "Please insert your address WITHOUT SPACES: "; cin >> user.address;
+    cout << endl << "Please insert number of students: "; cin >> numberStudents;
     if (numberStudents > 9 or numberStudents < 1)
     {
         cout << endl << "Please insert number of students between 1 and 9: ";
@@ -114,17 +148,11 @@ void registerUserMenu(USER* users, int& userCount, int& maxId)
             cin >> numberStudents;
         }
     }
-
-
-
-
     for (int i = 0; i < numberStudents; i++)
     {
-        cout << endl << "Please insert your child first and last name: ";
-        cin >> user.studentFName;
-        cin >> user.studentLName;
-        cout << endl << "Please insert your child years: ";
-        cin >> user.studentYears;
+        cout << endl << "Please insert your child first name: "; cin >> user.studentFName;
+        cout << endl << "Please insert your child last name: "; cin >> user.studentLName;
+        cout << endl << "Please insert your child years: "; cin >> user.studentYears;
         while (user.studentYears < 12 or user.studentYears>16)
         {
             if (user.studentYears < 12)
@@ -135,148 +163,189 @@ void registerUserMenu(USER* users, int& userCount, int& maxId)
             {
                 cout << "Your kid is above 16 years!" << endl;
             }
-
-
             cin >> user.studentYears;
 
         }
     }
-
-
-    for (int i = 0; i < numberStudents; i++)
-    {
-        cout << endl;
-        cout << user.studentFName << " " << user.studentLName << " " << user.studentYears << endl;
-    }
     registerUser(users, userCount, maxId, user);
+    cout << "You are ready! The user has been added to your list!" << endl;
 }
 
-USER getUser(USER* users, int& userCount, int id)
+void showUserMenu(USER* users, int& userCount, int& maxId) // shows all current saved users' data to the admin
 {
-    int index = getUserId(users, userCount, id);
-    return users[index];
-}
-void showUserMenu(USER* users, int userCount, int& maxId)
-{
-    cout << "List of the entered products: " << endl;
+    cout << endl << "List of the entered users:" << endl;
     for (int i = 0; i < userCount; i++)
     {
-        cout << "Id: " << users[i].id << endl;
-        cout << "First name: " << users[i].firstName << endl;
-        cout << "Last name: " << users[i].lastName << endl;
-        cout << "Student first name: " << users[i].studentFName << endl;
-        cout << "Student last name: " << users[i].studentLName << endl;
-        cout << "Student years: " << users[i].studentYears << endl;
+        cout << endl << "Id: " << users[i].id << endl;
+        cout << endl << "First name: " << users[i].firstName << endl;
+        cout << endl << "Last name: " << users[i].lastName << endl;
+        cout << endl << "Username: " << users[i].username << endl;
+        cout << endl << "Password: " << users[i].password << endl;
+        cout << endl << "Address:" << users[i].address << endl;
+        cout << endl << "Student name:" << users[i].studentFName << endl;
+        cout << endl << "Student name:" << users[i].studentLName << endl;
+        cout << endl << "Student years:" << users[i].studentYears << endl;
+        cout << endl;
     }
 }
 
-
-
-void deleteUser(USER* users, int& usersCount, int id) // Function that delete user by id
-{
-    int index = getUserId(users, usersCount, id);
-
-    for (int i = index; i < usersCount - 1; i++)
-    {
-        users[i] = users[i + 1];
-    }
-}
-void deleteUserMenu(USER* users, int& usersCount, int& maxId) //displays a menu that delete  users
+void editMenu(USER* users, int& userCount) //displays the menu that help the admin to edit data of a user
 {
     int userId;
 
-    cout << endl << "Enter Id of the student: ";
+    cout << "Please enter the id of the user that you want to edit: ";
     cin >> userId;
 
-    deleteUser(users, usersCount, userId);
+    USER user = getUser(users, userCount, userId);
 
-    cout << endl << "The student has been removed!" << endl;
-}
-bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of the program
-{
-    int maxId = 1;
-    Login loginData;
-    int userCount = 0;
-    int option;
-    cout << setw(70) << "-----------------------------" << endl;
-    cout << setw(56) << "   1. Register" << endl;
-    cout << setw(62) << "   2. Login as admin" << endl;
-    cout << setw(52) << "   3. Exit" << endl;
-    cout << setw(70) << "-----------------------------" << endl;
-    cout << setw(62) << "Choose an option: ";
-    cin >> option;
-    while (option > 3 or option < 1)
-    {
-        if (option > 3 or option < 1)
-        {
-            cout << "Wrong number. Choose an option again!" << endl;
-            cout << endl << "Choose an option: ";
-            cin >> option;
-        }
-    }
-    switch (option)
+    cout << endl << "1.Id: " << endl;
+    cout << endl << "2.First name of the parent: " << endl;
+    cout << endl << "3.Last name of the parent: " << endl;
+    cout << endl << "4.Username: " << endl;
+    cout << endl << "5.Password: " << endl;
+    cout << endl << "6.Address: " << endl;
+    cout << endl << "7.Student first name: " << endl;
+    cout << endl << "8.Student last name: " << endl;
+    cout << endl << "9.Student years " << endl;
+    cout << endl << "What do you want to edit: " << endl;
+
+    int choose;
+    cin >> choose;
+
+    switch (choose)
     {
     case 1:
-        registerUserMenu(users,usersCount, id);
+        cout << "Enter new ID: ";
+        cin >> user.id;
+        modifyUser(users, userCount, userId, user);
         break;
     case 2:
-        Admin(loginData);
-        int admopt;
-        cout << setw(70) << "----------------------------" << endl;
-        cout << setw(64) << "   1. Add new student" << endl;
-        cout << setw(64) << "   2. Delete student!" << endl;
-        cout << setw(67) << "   3. Edit student data!" << endl;
-        cout << setw(67) << "   4. Show all students!" << endl;
-        cout << setw(64) << "   5. Search student!" << endl;
-        cout << setw(54) << "   6. Exit!" << endl;
-        cout << setw(70) << "----------------------------" << endl;
-        cout << setw(64) << "Choose an option: ";
-        cin >> admopt;
-        while (admopt > 6 or admopt < 1)
+        cout << "Enter new first name of the parent: ";
+        cin >> user.firstName;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 3:
+        cout << "Enter new last name of the parent: ";
+        cin >> user.lastName;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 4:
+        cout << "Enter new username: ";
+        cin >> user.username;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 5:
+        cout << "Enter new pasword: ";
+        cin >> user.password;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 6:
+        cout << "Enter new address: ";
+        cin >> user.address;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 7:
+        cout << "Enter new student first name: ";
+        cin >> user.studentFName;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 8:
+        cout << "Enter new student last name: ";
+        cin >> user.studentLName;
+        modifyUser(users, userCount, userId, user);
+        break;
+    case 9:
+        cout << "Enter new student years: ";
+        cin >> user.studentYears;
+        modifyUser(users, userCount, userId, user);
+        break;
+
+    default:
+        cout << "Invalid input!" << endl;
+    }
+    cout << "You are ready! The user has been edited in the list!" << endl;
+}
+
+void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that help the admin to delete a whole user
+{
+    int userId;
+
+    cout << "Please enter the id of the user that you want to delete: ";
+    cin >> userId;
+    deleteUser(users, userCount, userId);
+
+    cout << "The user has been removed from the list!" << endl;
+}
+
+
+/*=====PRESENTATION LAYER=====*/
+
+bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of the program
+{
+    int choice;
+    cout << setw(70) << "-----------------------------" << endl;
+    cout << setw(62) << "  ADMIN MENU:" << endl;
+    cout << setw(60) << "1.Enter user" << endl;
+    cout << setw(64) << "2.View all users" << endl;
+    cout << setw(59) << "3.Edit user" << endl;
+    cout << setw(61) << "4.Delete user" << endl;
+    cout << setw(54) << "5.Exit" << endl;
+    cout << setw(70) << "-----------------------------" << endl;
+    cout << endl << "Choose an option: ";
+    cin >> choice;
+    while (choice > 5 or choice < 1)
+    {
+        if (choice > 5 or choice < 1)
         {
-            if (admopt > 6 or admopt < 1)
-            {
-                cout << "Wrong number. Choose an option again!" << endl;
-                cout << endl << "Choose an option: ";
-                cin >> admopt;
-            }
-            switch (admopt)
-            {
-            case 1:
-                registerUserMenu(users,usersCount, id);
-                break;
-            case 2:
-                deleteUserMenu(users, usersCount, id);
-                break;
-            case 3:
-                break;
-            case 4:
-                showUserMenu(users, usersCount, id);
-                break;
-            case 5: 
-                getUser(users, usersCount, id);
-                break;
-            case 6:
-                return 0;
-            }
+            cout << "Wrong number. Choose an choice again!" << endl;
+            cout << endl << "Choose an another option: ";
+            cin >> choice;
         }
+    }
+    switch (choice) {
+    case 1: {
+        enterUserMenu(users, usersCount, id);
+        break;
+    }
+    case 2: {
+        showUserMenu(users, usersCount, id);
+        break;
+    }
     case 3: {
+        editMenu(users, usersCount);
+        break;
+    }
+    case 4: {
+        deleteUserMenu(users, usersCount, id);
+        break;
+    }
+
+    case 5: {
         return false;
     }
-    
+
+    default:
+        break;
 
     }
 }
 
-int main()
+/*===================================================*/
+int main() // the main function of the project
 {
-    Login loginData;
-    int usersCount = 0;
-    int maxId = 1;
 
-    USER users[100];
-    do
+    int customerCount = 0;
+    int maxId = 1;
+    USER customers[100];
+
+    bool mainMenu = true;
+    string admin;
+    string adminpass;
+    Admin(admin, adminpass);
+    if (Admin)
     {
-        MainMenu(users, usersCount, maxId);
-    } while (MainMenu);
+        do {
+            mainMenu = MainMenu(customers, customerCount, maxId);
+        } while (mainMenu);
+    }
 }
