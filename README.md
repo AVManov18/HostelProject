@@ -2,6 +2,7 @@
 
 1. [Description of the project](#team)
 2. [Our Team](#team)
+3. [Technologies](#team)
 
 
 
@@ -14,3 +15,5 @@
   ## 2. Our Team
   - Atanas Manov (BackEnd Developer)
   - Dimitur Georgiev (BackEnd Developer)
+##  3. Technologies
+    To do this project, we use visual studio, c++, github and discord to communicate.
