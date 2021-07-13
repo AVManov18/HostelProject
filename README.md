@@ -4,7 +4,7 @@
 2. [Our Team](#team)
 3. [Technologies](#team)
 4. [About us](#team)
-
+5. [Contact us](#team)
 
 
 
@@ -22,6 +22,10 @@
     - C++
     - Github
     - Discord to communicate
+    - MS PowerPoint
 ## 4. About us
 We are students in Vocational school of programing and innovation in Burgas, Meden rudnik. This project was our task for teaching practice.
 
+## 5. Contact us
+AVManov18@codingburgas.bg
+DMGeorgiev18@codingburgas.bg
