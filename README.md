@@ -3,7 +3,7 @@
 1. [Description of the project](#team)
 2. [Our Team](#team)
 3. [Technologies](#team)
-
+4. [About us](#team)
 
 
 
@@ -22,3 +22,6 @@
     - C++;
     - Github;
     - Discord to communicate
+## 4. About us
+We are students in Vocational school of programing and innovation in Burgas, Meden rudnik. This project was our task for teaching practice.
+
