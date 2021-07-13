@@ -18,9 +18,9 @@
 ##  3. Technologies
     To do this project, we use: 
     
-    - Visual studio; 
-    - C++;
-    - Github;
+    - Visual studio
+    - C++
+    - Github
     - Discord to communicate
 ## 4. About us
 We are students in Vocational school of programing and innovation in Burgas, Meden rudnik. This project was our task for teaching practice.
